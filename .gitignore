@@ -38,3 +38,6 @@ wanderer
 hiscore
 savegame
 keypress
+
+# Local build
+local/

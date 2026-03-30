@@ -1,0 +1,21 @@
+# Build Requirements for Wanderer
+
+## Runtime
+- ncurses (libncurses6 or libncursesw6)
+
+## Build Tools
+- C compiler (cc/gcc/clang) with C99 support
+- make
+- GNU install (coreutils)
+
+## Development Headers
+- libncurses-dev
+
+## Installing on Debian/Ubuntu
+    sudo apt-get install build-essential libncurses-dev
+
+## Installing on Fedora/RHEL
+    sudo dnf install gcc make ncurses-devel
+
+## Installing on Arch Linux
+    sudo pacman -S base-devel ncurses

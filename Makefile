@@ -53,7 +53,7 @@ passwords: passwords.c
 
 %.o: %.c %.h wand_head.h
 
-install: 
+install:
 	$(INSTALL_DATA) -t $(SCREENPATH) screens/*
 	touch $(HISCOREPATH)
 	[ $(USER) = root ] && chown root:games $(HISCOREPATH) || true
@@ -64,8 +64,31 @@ install:
 	$(INSTALL_MAN) wanderer.6 $(MAN6_DIR)
 .PHONY: install
 
+LOCAL_DIR     = ./local
+LOCAL_BIN     = $(LOCAL_DIR)/bin
+LOCAL_SHARE   = $(LOCAL_DIR)/share/wanderer
+LOCAL_SCREENS = $(LOCAL_SHARE)/screens
+LOCAL_HISCORE = $(LOCAL_SHARE)/hiscore
+LOCAL_MAN     = $(LOCAL_DIR)/share/man/man6
+
+install-local:
+	mkdir -p $(LOCAL_BIN) $(LOCAL_SCREENS) $(LOCAL_MAN)
+	cp screens/* $(LOCAL_SCREENS)/
+	touch $(LOCAL_HISCORE)
+	$(CC) $(CFLAGS) \
+		-D_POSIX_C_SOURCE=200809L \
+		-DPREFIX='"$(abspath $(LOCAL_DIR))"' \
+		-DSCREENPATH='"$(abspath $(LOCAL_SCREENS))"' \
+		-DHISCOREPATH='"$(abspath $(LOCAL_HISCORE))"' \
+		$(SRCS) $(LDLIBS) -o $(LOCAL_BIN)/$(PROGRAM)
+	chmod 755 $(LOCAL_BIN)/$(PROGRAM)
+	cp wanderer.6 $(LOCAL_MAN)/
+	@echo "Local install complete. Run with: $(LOCAL_BIN)/$(PROGRAM)"
+.PHONY: install-local
+
 clean:
 	$(RM) $(OBJS)
+	$(RM) -r $(LOCAL_DIR)
 .PHONY: clean
 
 distclean:

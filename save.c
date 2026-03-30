@@ -35,7 +35,7 @@ extern struct mon_rec start_of_list, *tail_of_list;
 **********************************************************/
 void save_game(int num, long *score, int *bell, int maxmoves)
 {
-    char fname[128], buf[70], *fp;
+    char fname[128], buf[160], *fp;
     FILE *fo;
     struct saved_game s;
     struct mon_rec *mp;

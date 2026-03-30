@@ -28,6 +28,7 @@ int rscreen(int num, int *maxmoves)
     int y, numr;
     FILE *fp;
     char name[100];
+    char tmp_row[ROWLEN + 2];
     char (*row_ptr)[ROWLEN + 1] = screen;
     if (!edit_mode)
         sprintf(name, "%s/screen.%d", screenpath, num);
@@ -42,21 +43,23 @@ int rscreen(int num, int *maxmoves)
     if ((fp = fopen(name, "r")) == NULL)
     {
         if (edit_mode)
-            sprintf(buffer, "Cannot find file %s.", name);
+            snprintf(buffer, sizeof(buffer), "Cannot find file %s.", name);
         else
-            sprintf(buffer, "File for screen %d unavailable.", num);
+            snprintf(buffer, sizeof(buffer), "File for screen %d unavailable.", num);
         inform_me(buffer, 0);
     }
     else
     {
         for (y = 0; y < NOOFROWS; y++)
         {
-            if (fgets(*row_ptr, ROWLEN + 2, fp) == NULL)
+            if (fgets(tmp_row, ROWLEN + 2, fp) == NULL)
             {
                 fprintf(stderr, "fgets error\n");
                 exit(EXIT_FAILURE);
             }
-            numr = strlen(*row_ptr) - 1;
+            strncpy(*row_ptr, tmp_row, ROWLEN);
+            (*row_ptr)[ROWLEN] = '\0';
+            numr = strlen(*row_ptr);
             while (numr < ROWLEN)
                 (*row_ptr)[numr++] = ' ';
             row_ptr++;
@@ -95,7 +98,7 @@ int wscreen(int maxmoves)
         sprintf(name, "/tmp/screen.%d", getpid());
         if ((fp = fopen(name, "w")) != NULL)
         {
-            sprintf(buffer, "Written file is %s", name);
+            snprintf(buffer, sizeof(buffer), "Written file is %s", name);
             inform_me(buffer, 0);
         }
         else
