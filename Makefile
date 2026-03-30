@@ -75,7 +75,9 @@ install-local:
 	mkdir -p $(LOCAL_BIN) $(LOCAL_SCREENS) $(LOCAL_MAN)
 	cp screens/* $(LOCAL_SCREENS)/
 	touch $(LOCAL_HISCORE)
-	$(CC) $(CFLAGS) \
+	touch $(LOCAL_SCREENS)/no_pws
+	$(CC) -g -O0 \
+		-std=c99 -Wall -Wextra \
 		-D_POSIX_C_SOURCE=200809L \
 		-DPREFIX='"$(abspath $(LOCAL_DIR))"' \
 		-DSCREENPATH='"$(abspath $(LOCAL_SCREENS))"' \

@@ -227,7 +227,7 @@ int main(int argc, char **argv)
     else
         close(fp);
 
-    while ((c = getopt(argc, argv, "01k:et:r:fmCcvsi")) != -1)
+    while ((c = getopt(argc, argv, "01k:et:r:fmCcvsin")) != -1)
     {
         switch (c)
         {
@@ -279,6 +279,9 @@ int main(int argc, char **argv)
             edit_mode = 1;
             no_passwords = 1;
             memory_end = edit_memory = (char *) malloc(EMSIZE * sizeof(char));
+            break;
+        case 'n':
+            no_passwords = 1;
             break;
         case 't':
             edit_screen = optarg;

@@ -16,7 +16,7 @@ You are a spider (`@`) who must gather all the treasure (`*`) in a level and the
 | `X` | Exit | Go here once all treasure is collected. Worth 250 points. |
 | `:` | Passable earth | Dig through it, clearing it away. Worth 1 point each. |
 | `#` | Solid rock | Cannot be blown up. |
-| `=` or `\_` | Destructible rock | Can be blown up. |
+| `=` or `_` | Destructible rock | Can be blown up. |
 | `T` | Teleport | Takes you to a new location (`A` in screen files). Optional, but worth a 50 point bonus. |
 | `O` | Boulder | Falls down. A falling boulder kills you. Can be pushed sideways (but not in groups). |
 | `<` | Left arrow | Shoots left. Triggers if you come near. Kills you if it hits you. Can be pushed up or down (but not in vertical groups). |
